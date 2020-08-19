@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>This is a test template..</title>
+    <!--强制让文档的宽度与设备的宽度保持1:1，并且文档最大的宽度比例是1.0，且不允许用户点击屏幕放大浏览-->
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <!--iphone设备中的safari私有meta标签，它表示：允许全屏模式浏览-->
+    <meta content="yes" name="apple-mobile-web-app-capable"/>
+    <!--iphone的私有标签，它指定的iphone中safari顶端的状态条的样式-->
+    <meta content="black" name="apple-mobile-web-app-status-bar-style"/>
+    <!--告诉设备忽略将页面中的数字识别为电话号码--> <!--Android中禁止自动识别页面中的邮件地址，iOS中不会自动识别邮件地址-->
+    <meta content="telephone=no,email=no" name="format-detection"/>
+    <!--苹果手机：如果把一个web app添加到了主屏幕中，那么从主屏幕中打开这个web app则全屏显示-->
+    <meta name="apple-touch-fullscreen" content="yes"/>
+    <!--苹果手机：将应用添加到手机主屏幕，会有一个icon可以直接进入-->
+    <!--<link rel="apple-touch-icon" href="/static/images/identity/HTML5_Badge_64.png"/>-->
+    <link rel="stylesheet" href="css/base_small.css"/>
+    <script type="application/javascript">
+        /**
+         * 判断是手机还是pc端登陆系统
+         * true：手机端
+         * false：pc端
+         */
+        let flag = navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i)
+        if (!flag) {
+            window.location.href = "index_pc.html";
+        }
+
+        //------根据屏幕设置字体大小，设置rem---------------
+        function reSize() {
+            (function (doc, win) {
+                let docEl = doc.documentElement;
+                let resizeEvt = 'orientationchange' in win ? 'orientationchange' : 'resize';
+                let recalc = function () {
+                    //let dpr = win.devicePixelRatio;
+                    //let scale = 1 / dpr;
+                    //document.querySelector('meta[name="viewport"]').setAttribute('content', 'initial-scale=' + scale + ', maximum-scale=' + scale + ', minimum-scale=' + scale + ', user-scalable=no');
+                    let pxPerRem = docEl.clientWidth || doc.body.clientWidth;
+                    /*if (pxPerRem > 1024) {//访问PC端页面,像素大于1024跳PC端
+                        //docEl.style.fontSize = 75 + 'px';
+                        docEl.style.setProperty('--ratio', 75);
+                        //window.location.href = "../index.html";
+                    } else {
+                        //docEl.style.fontSize = pxPerRem + 'px';
+                        docEl.style.setProperty('--ratio', pxPerRem / 75);
+                    }*/
+                    //docEl.style.setProperty('--ratio', pxPerRem * scale / 7.5 + "px");
+                    docEl.style.fontSize = pxPerRem / 7.5 + "px";
+                };
+                if (!doc.addEventListener) return;
+                win.addEventListener(resizeEvt, recalc, false);
+                doc.addEventListener('DOMContentLoaded', recalc, false);
+            })(document, window);
+        }
+
+        reSize();
+    </script>
+    <!--<script type="application/javascript" src="../js/jquery-3.4.1.min.js"></script>-->
+</head>
+<body>
+<div class="content"></div>
+</body>
+</html>
